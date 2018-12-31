@@ -12,12 +12,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     private TextView signup;
+    private EditText email;
+    private EditText pass;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         signup = findViewById(R.id.signup_txt);
+        email = findViewById(R.id.email_login);
+        pass = findViewById(R.id.password_login);
+        btnLogin = findViewById(R.id.login_btn);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
