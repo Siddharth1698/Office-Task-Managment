@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "520556104344",
+    "firebase_url": "https://office-task-managment.firebaseio.com",
+    "project_id": "office-task-managment",
+    "storage_bucket": "office-task-managment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520556104344:android:3a1e3d86c15ce217",
+        "android_client_info": {
+          "package_name": "ml.siddharthm.officetaskmanagment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520556104344-lm6779bedh9co0jo2fki782er62rhhds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.siddharthm.officetaskmanagment",
+            "certificate_hash": "dd2150147763d1bac9b257511fb14b0eca138646"
+          }
+        },
+        {
+          "client_id": "520556104344-hu949nh4tlp9j2emfql04jn9fctd8jrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyj65lsTS6YBd3b6RiUBHsKTs5yH2C8jg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520556104344-hu949nh4tlp9j2emfql04jn9fctd8jrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
