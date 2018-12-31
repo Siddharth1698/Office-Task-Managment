@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="Email"
-                android:id="@+id/email_pass"/>
+                android:id="@+id/email_reg"/>
 
             <EditText
                 android:layout_width="match_parent"
