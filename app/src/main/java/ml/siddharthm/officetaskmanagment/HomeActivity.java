@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,4 +105,34 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    public static class myViewHolder extends RecyclerView.ViewHolder{
+        View myView;
+
+        public myViewHolder(View itemView) {
+            super(itemView);
+            myView = itemView;
+        }
+        public void setTitle(String title){
+            TextView mTitle = myView.findViewById(R.id.title);
+            mTitle.setText(title);
+        }
+
+        public void setNote(String note){
+            TextView mNote = myView.findViewById(R.id.note);
+            mNote.setText(note);
+        }
+
+        public void setDate(String date){
+            TextView mDate = myView.findViewById(R.id.date);
+            mDate.setText(date);
+        }
+
+
+
+    }
 }
