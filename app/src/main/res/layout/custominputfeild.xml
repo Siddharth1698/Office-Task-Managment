@@ -13,6 +13,16 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="Add your Task:"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_margin="10dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
