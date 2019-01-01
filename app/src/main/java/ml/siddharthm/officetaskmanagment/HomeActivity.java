@@ -10,11 +10,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.util.Date;
+
+import ml.siddharthm.officetaskmanagment.Model.Data;
 
 public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private FloatingActionButton fabBtn;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +35,14 @@ public class HomeActivity extends AppCompatActivity {
         toolbar=findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Office Task Managment");
+
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String Uid = mUser.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("TaskNote").child(Uid);
+
 
         fabBtn=findViewById(R.id.fab_btn);
         fabBtn.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(HomeActivity.this);
                 View myView = inflater.inflate(R.layout.custominputfeild,null);
                 myDialog.setView(myView);
-                AlertDialog dialog = myDialog.create();
+                final AlertDialog dialog = myDialog.create();
 
                 final EditText title = myView.findViewById(R.id.edt_title);
                 final EditText note = myView.findViewById(R.id.edt_note);
@@ -53,6 +74,13 @@ public class HomeActivity extends AppCompatActivity {
                             note.setError("Required Feild...");
                             return;
                         }
+
+                        String id = mDatabase.push().getKey();
+                        String datee = DateFormat.getDateInstance().format(new Date());
+                        Data data = new Data(mTitle,mNote,datee,id);
+                        mDatabase.child(id).setValue(data);
+                        Toast.makeText(getApplicationContext(),"Data Insert",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
                 });
 
