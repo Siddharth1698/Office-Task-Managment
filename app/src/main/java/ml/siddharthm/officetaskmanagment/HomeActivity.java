@@ -36,6 +36,14 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
+    private EditText titleUp;
+    private EditText noteUp;
+    private Button btnDeleteUp;
+    private Button btnUpdateUp;
+    private String title;
+    private String note;
+    private String post_key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,16 +124,22 @@ public class HomeActivity extends AppCompatActivity {
 
         FirebaseRecyclerAdapter<Data,myViewHolder>adapter = new FirebaseRecyclerAdapter<Data, myViewHolder>(Data.class,R.layout.item_data,myViewHolder.class,mDatabase) {
             @Override
-            protected void populateViewHolder(myViewHolder viewHolder, Data model, int position) {
+            protected void populateViewHolder(myViewHolder viewHolder, final Data model, final int position) {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setNote(model.getNote());
                 viewHolder.setDate(model.getDate());
                 viewHolder.myView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        post_key=getRef(position).getKey();
+                        title = model.getTitle();
+                        note = model.getNote();
                         updateData();
                     }
                 });
+
+
 
             }
         };
@@ -161,7 +175,42 @@ public class HomeActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(HomeActivity.this);
         View myView = inflater.inflate(R.layout.updateinputfeild,null);
         myDialog.setView(myView);
-        AlertDialog dialog = myDialog.create();
+        final AlertDialog dialog = myDialog.create();
+
+        titleUp = myView.findViewById(R.id.edt_title_upd);
+        noteUp = myView.findViewById(R.id.edt_note_upd);
+
+         titleUp.setText(title);
+         titleUp.setSelection(title.length());
+
+         noteUp.setText(note);
+         noteUp.setSelection(note.length());
+
+
+        btnDeleteUp = myView.findViewById(R.id.btn_delete_upd);
+        btnUpdateUp = myView.findViewById(R.id.btn_update_upd);
+
+        btnUpdateUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                title = titleUp.getText().toString().trim();
+                note = noteUp.getText().toString().trim();
+                String mDate = DateFormat.getDateInstance().format(new Date());
+                Data data = new Data(title,note,mDate,post_key);
+                mDatabase.child(post_key).setValue(data);
+                dialog.dismiss();
+
+            }
+        });
+
+        btnDeleteUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatabase.child(post_key).removeValue();
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
         }
 
