@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         String Uid = mUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("TaskNote").child(Uid);
+        mDatabase.keepSynced(true);
 
         recyclerView = findViewById(R.id.recycler);
 
@@ -108,6 +110,17 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        FirebaseRecyclerAdapter<Data,myViewHolder>adapter = new FirebaseRecyclerAdapter<Data, myViewHolder>(Data.class,R.layout.item_data,myViewHolder.class,mDatabase) {
+            @Override
+            protected void populateViewHolder(myViewHolder viewHolder, Data model, int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setNote(model.getNote());
+                viewHolder.setDate(model.getDate());
+
+            }
+        };
+        recyclerView.setAdapter(adapter);
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder{
